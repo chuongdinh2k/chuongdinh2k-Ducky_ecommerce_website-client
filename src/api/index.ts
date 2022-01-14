@@ -1,7 +1,7 @@
 import axios from "axios";
 import { toast } from "react-toastify";
 // export const url = 'http://localhost:5000';sadsad
-export const url = 'https://ducky-ecommerce-server.herokuapp.com/';
+export const url = 'https://ducky-ecommerce-server.herokuapp.com';
 export const clientUrl = 'http://localhost:3000'
 export const registerApi = `${url}/api/auth/register`;
 export const loginApi = `${url}/api/auth/login`;
