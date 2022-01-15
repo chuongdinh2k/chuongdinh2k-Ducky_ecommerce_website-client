@@ -7,6 +7,8 @@ import SettingsIcon from '@material-ui/icons/Settings';
 import { authActions } from '../redux/Auth/authSlice';
 import { useHistory } from 'react-router-dom';
 import {getFirstLetter} from '../helpers/string';
+import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
+import { loadCart } from '../redux/Cart/asyncAction';
 const useStyles = makeStyles(theme=>({
     root:{
         display:"flex",
@@ -31,6 +33,9 @@ function TopToolBar():JSX.Element {
     const history = useHistory();
     const dispatch = useAppDispatch();
     const userInfo = useAppSelector(state=>state.user);
+    const token = userInfo.currentUser.token;
+    const cart = useAppSelector(state=>state.cart);
+    console.log(cart);
     const logOut = ()=>{
         localStorage.removeItem('currentUser');
         dispatch(authActions.logOut());
@@ -48,14 +53,17 @@ function TopToolBar():JSX.Element {
     const open = Boolean(anchorEl);
     const id = open ? 'simple-popover' : undefined;
     const classes = useStyles();
+    React.useEffect(()=>{
+        dispatch(loadCart({token}))
+      },[dispatch,token])
     return (
         <div className={classes.root}>
             <Typography variant='h6'>DUCKY.COM</Typography>
             <Box>
                 <label htmlFor="icon-button-file">
-                    <IconButton color="primary" component="span">
-                        <Badge badgeContent={4} color="secondary">
-                            <NotificationsIcon style={{color:"#637381"}} />
+                    <IconButton color="primary" component="span" onClick={()=>history.push("/dashboard/Checkout")}>
+                        <Badge badgeContent={cart?.product?cart?.product?.length:0} color="secondary">
+                            <ShoppingCartIcon style={{color:"#637381"}} />
                         </Badge>
                     </IconButton>
                     <IconButton color="primary" onClick={handleClick} component="span">

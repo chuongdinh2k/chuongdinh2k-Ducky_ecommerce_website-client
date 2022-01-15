@@ -80,9 +80,9 @@ export default function TableCheckOut() {
 
   const classes = useStyles();
   // call api when component did mount
-  React.useEffect(()=>{
-    dispatch(loadCart({token}))
-  },[dispatch,token])
+  // React.useEffect(()=>{
+  //   dispatch(loadCart({token}))
+  // },[dispatch,token])
   return (
     <div>
       <TableContainer className={classes.wrapperTable}  component={Paper}>

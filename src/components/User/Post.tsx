@@ -11,6 +11,7 @@ import { deletePost, likePost } from '../../redux/Blog/blogAsyncAction';
 import CommentForm from './CommentForm';
 import { clientUrl, url } from '../../api';
 import ViewImagePopup from "../Popup/ImagePopup";
+import { useHistory } from 'react-router-dom';
 const useStyles = makeStyles((theme: Theme)=>
     createStyles({
         root:{},
@@ -82,6 +83,7 @@ interface IProps{
 }
 function Post(props:IProps):JSX.Element {
     const {blog} = props;
+    const history = useHistory();
     const classes = useStyles();
     const currentUser = useAppSelector(state=>state.user?.currentUser);
     const token = currentUser?.token;
@@ -111,9 +113,9 @@ function Post(props:IProps):JSX.Element {
 
             <Box sx={{display:'flex',justifyContent:"space-between",width:"100%"}}>
                 <Box sx={{display:'flex'}}>
-                    <Avatar src={blog?.user?.picture} onClick={()=>window.location.href=`${clientUrl}/Dashboard/Profile/${blog?.user?._id}`}>{`${blog?.user?.username?getFirstLetter(blog?.user?.username):""}`}</Avatar>
+                    <Avatar src={blog?.user?.picture} onClick={()=>history.push(`/Dashboard/Profile/${blog?.user?._id}`)}>{`${blog?.user?.username?getFirstLetter(blog?.user?.username):""}`}</Avatar>
                     <Box pl={2}>
-                        <Typography variant="body2" style={{cursor:'pointer'}} onClick={()=>window.location.href=`${clientUrl}/Dashboard/Profile/${blog?.user?._id}`}>{blog?.user?.username}</Typography>
+                        <Typography variant="body2" style={{cursor:'pointer'}} onClick={()=>history.push(`/Dashboard/Profile/${blog?.user?._id}`)}>{blog?.user?.username}</Typography>
                         <Typography variant="body2" className={classes.smallText}>{moment(blog?.createdAt).format('LLL')}</Typography>
                     </Box>
                 </Box>

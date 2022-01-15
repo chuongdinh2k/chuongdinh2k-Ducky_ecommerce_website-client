@@ -43,9 +43,6 @@ function Create():JSX.Element {
         },
     },
     };
-    // let convertColors = color.map((item:any)=>{
-    //     return {"name":item}
-    // });
     
     const onSubmit = async(data:any) => {
         if(file.length<=0){
@@ -65,7 +62,10 @@ function Create():JSX.Element {
         formData.append('price',data.price);
         formData.append('gender',data.gender);
         formData.append('category',data.category);
-        dispatch(createProduct({item:formData,token}));
+        // dispatch(createProduct({item:formData,token}));
+        console.log(color);
+        setFile([]);
+        setFilePreview([]);
         reset()
     }
     return (
